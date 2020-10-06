@@ -2,9 +2,7 @@
 
 #include <QObject>
 #include <QPointer>
-#include <QSize>
 
-class QTimer;
 class QQuickRenderControl;
 class QOpenGLContext;
 class QQuickWindow;
@@ -17,38 +15,34 @@ class ImageSource : public QObject
     Q_OBJECT
 
 public:
-    explicit ImageSource(QObject *parent = nullptr);
+    explicit ImageSource(QObject* parent = nullptr);
     ~ImageSource() override;
 
 public:
-    void init(QOpenGLContext* glContext, QQuickItem* rootItem, int width, int height, int id);
+    void init(QOpenGLContext* glContext, QQuickItem* rootItem, int width, int height);
     void clear();
 
     void render();
     void resize(int width, int height);
-    void setUpdateInterval(int ms);
-
-    void start();
-    void stop();
 
 public:
+    QQuickWindow* window() const;
     QQuickItem* rootObject() const;
     QOpenGLFramebufferObject* fbo() const;
 
-    int updateInterval() const;
     int width() const;
     int height() const;
 
 private:
-    void createFbo();
+    void createFbo(const QSize& size);
     void destroyFbo();
 
 signals:
-    void newImageAvailable(int id);
+    void newImageAvailable();
+    void fboCreated(QOpenGLFramebufferObject* fbo);
+    void fboDestroyed();
 
 private:
-    QTimer* m_updateTimer;
-
     QPointer<QOpenGLContext> m_glContext;
     QPointer<QQuickItem>     m_rootItem;
 
@@ -57,6 +51,5 @@ private:
     QQuickWindow*             m_quickWindow;
     QOpenGLFramebufferObject* m_fbo;
 
-    QSize m_size;
-    int   m_id;
+    bool m_initialized;
 };

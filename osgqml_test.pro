@@ -4,7 +4,7 @@ CONFIG += c++11
 DESTDIR = $$PWD/../osgqml_test_bin
 CONFIG(debug, debug|release):DESTDIR = $$join(DESTDIR,,,_debug)
 
-#OSG = ..
+OSG = $$PWD/../../sukhoi/platform
 
 win32:OSGROOT = $$OSG/osg363/win64/
 linux:OSGROOT = $$OSG/osg363/astra/

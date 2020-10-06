@@ -1,11 +1,13 @@
 #pragma once
 
 #include <QOpenGLWidget>
+#include <QOpenGLContext>
 
 #include <osgViewer/GraphicsWindow>
 #include <osgViewer/Viewer>
 
 class QInputEvent;
+class QSurfaceFormat;
 
 class OsgWidget : public QOpenGLWidget
 {

@@ -87,14 +87,15 @@ namespace
 
 OsgWidget::OsgWidget(QWidget* parent, Qt::WindowFlags flags)
     : QOpenGLWidget(parent, flags)
-    , m_osgGraphicsContext(new osgViewer::GraphicsWindowEmbedded(x(), y(), width(), height()))
     , m_osgViewer(new osgViewer::Viewer)
-    , m_firstFrame(false)
+    , m_firstFrame(true)
 {
     setFormat(defaultGraphicsSettings());
 
     setMouseTracking(true);
     setFocusPolicy(Qt::WheelFocus);
+
+    m_osgGraphicsContext = m_osgViewer->setUpViewerAsEmbeddedInWindow(x(), y(), width(), height());
 }
 
 OsgWidget::~OsgWidget()

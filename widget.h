@@ -9,7 +9,8 @@ class QQuickItem;
 
 class ImageSource;
 
-namespace osg {
+namespace osg
+{
     class Texture2D;
     class Image;
 }
@@ -23,17 +24,27 @@ public:
     ~Widget();
 
 public:
-    void updateTexture(QImage&& imageData);
+    void updateTexture(osg::Image* osgImage, QImage* imageBuffer, QImage&& imageData);
+    void createOsgTextureFromId(osg::Texture2D* texture, int textureId);
+    void clearOsgTexture(osg::Texture2D* texture);
+
+protected:
+    void initializeGL() override;
 
 private:
     QTimer* m_timer;
 
     QQmlEngine* m_qmlEngine;
-    QQuickItem* m_quickItem;
 
-    ImageSource* m_imageSource;
-    QImage*      m_imageData;
+    ImageSource* m_imageSource1;
+    ImageSource* m_imageSource2;
 
-    osg::Texture2D* m_osgTexture;
-    osg::Image*     m_osgImage;
+    osg::Texture2D* m_osgTexture1;
+    osg::Texture2D* m_osgTexture2;
+
+    QImage*     m_imageData1;
+    QImage*     m_imageData2;
+
+    osg::Image* m_osgImage1;
+    osg::Image* m_osgImage2;
 };
