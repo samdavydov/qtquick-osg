@@ -4,12 +4,12 @@ CONFIG += c++11
 DESTDIR = $$PWD/../osgqml_test_bin
 CONFIG(debug, debug|release):DESTDIR = $$join(DESTDIR,,,_debug)
 
-OSG = $$PWD/../../sukhoi/platform
+PLATFORM = #PATH_TO_YOUR_OSG_INSTALLATION
 
-win32:OSGROOT = $$OSG/osg363/win64/
-linux:OSGROOT = $$OSG/osg363/astra/
-OSGLIB = $$OSGROOT
+win32:OSG = $$PLATFORM/osg363/win64/
+linux:OSG = $$PLATFORM/osg363/astra/
 
+OSGLIB = $$OSG
 CONFIG(release, debug|release):OSGLIB = $$join(OSGLIB,,,release)
 CONFIG(debug  , debug|release):OSGLIB = $$join(OSGLIB,,,debug)
 
@@ -51,7 +51,7 @@ LIBS *= \
     -l$$OSG_SHADOW \
 
 INCLUDEPATH *= \
-    $$OSGROOT/include \
+    $$OSG/include \
 
 DEPENDPATH *= \
     INCLUDEPATH
